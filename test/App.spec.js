@@ -3,9 +3,25 @@ import * as assert from 'assert';
 import { shallow } from 'enzyme';
 import App from '../app/App';
 
-describe('fragment', () => {
-    it('should render with the correct class', () => {
-        const wrapper = shallow(<App name="FooBar"/>);
-        assert.equal(wrapper.find('.z-yourTeam-yourFragmentName').length, 1);
+
+describe('<App />', () => {
+
+    let wrapper;
+
+    beforeEach(() => {
+        wrapper = shallow(<App />);
+    });
+
+    it('should render the main component', () => {
+        assert.equal(wrapper.find(App).length, 1);
+    });
+
+    it('should render an input field', () => {
+        assert.equal(wrapper.find('input[type="text"]').length, 1);
+    });
+
+    it('should set the value of the input field via state', () => {
+        wrapper.setState({ value: 'Hello there' });
+        assert.equal(wrapper.find('input').value, "Hello there");
     });
 });
